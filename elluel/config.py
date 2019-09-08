@@ -63,7 +63,7 @@ class BgmInfo:
     def from_json(cls, string: str):
         return cls.from_dict(json.loads(string))
 
-    def download(self, output_dir: str):
+    def download(self, output_dir: str) -> None:
         link = f"https://youtu.be/{self.youtube}"
         cmd = [
             "youtube-dl",
@@ -87,3 +87,7 @@ class Config:
         return Config(
             bgm_infos=[BgmInfo.from_dict(data) for data in json.loads(string)]
         )
+
+    def download(self, output_dir: str) -> None:
+        for info in self.bgm_infos:
+            info.download(output_dir)
