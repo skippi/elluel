@@ -2,6 +2,8 @@
 
 A CLI tool for downloading OSTs from SlipySlidy's Maplestory OST list.
 
+The latest OST list can be found at the [maplebgm-db repo](https://github.com/maplestory-music/maplebgm-db/blob/master/bgm.json).
+
 ```bash
 Usage: elluel [OPTIONS] <input> <output>
 
