@@ -16,6 +16,19 @@ Options:
   --help  Show this message and exit.
 ```
 
+## Installation
+
+- This project requires poetry for installation.
+- This project requires youtube-dl for usage.
+
+```bash
+git clone https://github.com/skippi/elluel.git
+cd elluel
+poetry build
+cd dist
+pip install <elluel.tar.gz>
+```
+
 ## Motivation
 
 - Needed a quick and lazy way to download the most important MapleStory OSTs.
