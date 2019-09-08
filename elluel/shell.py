@@ -7,7 +7,12 @@ from .config import Config
 @click.argument('input', nargs=1, metavar='<input>')
 @click.argument('output', nargs=1, metavar='<output>')
 def main(input, output):
-    """Downloads OSTs listed in SlipySlidy's json file <input> to directory <output>."""
+    """Downloads OSTs listed in SlipySlidy's json file <input> to directory <output>.
+
+    This program will skip any OSTs that already exist in directory <output>.
+
+    Example: `elluel bgm.json ./output/dir`
+    """
 
     dir_files = [f for f in os.listdir(output)]
     no_ext = [os.path.splitext(f)[0] for f in dir_files]
