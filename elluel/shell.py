@@ -9,22 +9,22 @@ from .config import Config
 def main(input, output):
     """Downloads OSTs listed in SlipySlidy's json file <input> to directory <output>."""
 
-    dir_files = (f for f in os.listdir(output) if os.path.isfile(f))
-    no_ext = (os.path.splitext(f)[0] for f in dir_files)
+    dir_files = [f for f in os.listdir(output)]
+    no_ext = [os.path.splitext(f)[0] for f in dir_files]
 
     with open(input, encoding="utf8") as file:
-        data = file.read()
-        config = Config.from_json(data)
+        config = Config.from_file(file)
 
-        for info in config.bgm_infos:
-            print(f'{info.filename} ...', end='', flush=True)
+    for info in config.bgm_infos:
+        print(f'{info.filename} ...', end='', flush=True)
 
-            if not info.youtube:
-                print(' missing youtube link: ignoring')
+        if not info.youtube:
+            print(' missing youtube link: ignoring')
+            continue
 
-            if info.filename in no_ext:
-                print(' exists: ignoring')
-                continue
+        if info.filename in no_ext:
+            print(' exists: ignoring')
+            continue
 
-            info.download(output)
-            print(' done')
+        info.download(output)
+        print(' done')

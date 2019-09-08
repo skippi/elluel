@@ -3,7 +3,7 @@ import json
 import os
 import subprocess
 from dataclasses import dataclass
-from typing import Dict, Any, List
+from typing import Dict, Any, List, TextIO
 
 
 @dataclass
@@ -85,3 +85,7 @@ class Config:
         return Config(
             bgm_infos=[BgmInfo.from_dict(data) for data in json.loads(string)]
         )
+
+    @classmethod
+    def from_file(self, stream: TextIO):
+        return Config.from_json(stream.read())

@@ -1,3 +1,4 @@
+import io
 import json
 from datetime import date
 
@@ -44,3 +45,7 @@ class TestConfig:
     def test_from_json(self, string):
         cfg = Config.from_json(string)
         cfg.bgm_infos = [BgmInfo.from_dict(data) for data in json.loads(string)]
+
+    @given(stream=lists(bgm_info_data).map(json.dumps).map(io.StringIO))
+    def test_from_file(self, stream):
+        assert Config.from_file(stream) == Config.from_json(stream.getvalue())
