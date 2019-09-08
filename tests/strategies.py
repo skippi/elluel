@@ -1,5 +1,5 @@
 from datetime import date
-from hypothesis.strategies import tuples, just, text, integers, dates
+from hypothesis.strategies import lists, tuples, just, text, integers, dates
 
 bgm_info_field = (
     tuples(just("description"), text())
@@ -7,6 +7,8 @@ bgm_info_field = (
     | tuples(just("mark"), text())
     | tuples(just("youtube"), text())
 )
+
+bgm_info_data = lists(bgm_info_field).map(dict)
 
 metadata_field = (
     tuples(just("album-artist"), text())

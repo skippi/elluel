@@ -1,16 +1,7 @@
 import datetime
 import json
 from dataclasses import dataclass
-from typing import Dict, Any
-
-
-@dataclass
-class Config:
-    pass
-
-
-def parse(_: str) -> Config:
-    return Config()
+from typing import Dict, Any, List
 
 
 @dataclass
@@ -70,3 +61,10 @@ class BgmInfo:
     @classmethod
     def from_json(cls, string: str):
         return cls.from_dict(json.loads(string))
+
+
+Config = List[BgmInfo]
+
+
+def config_from_json(string: str):
+    return [BgmInfo.from_dict(data) for data in json.loads(string)]

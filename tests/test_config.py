@@ -3,12 +3,12 @@ from datetime import date
 
 from hypothesis import given
 from hypothesis.strategies import lists
-from elluel.config import BgmInfo, Metadata, Source
-from .strategies import bgm_info_field, metadata_field, source_field
+from elluel.config import BgmInfo, Metadata, Source, config_from_json
+from .strategies import bgm_info_data, metadata_field, source_field
 
 
 class TestBgmInfo:
-    @given(obj=lists(bgm_info_field).map(dict))
+    @given(obj=bgm_info_data)
     def test_from_dict(self, obj):
         info = BgmInfo.from_dict(obj)
         assert info.description == obj.get("description", "")
@@ -18,7 +18,7 @@ class TestBgmInfo:
         assert info.metadata == Metadata.from_dict(obj.get("metadata", {}))
         assert info.source == Source.from_dict(obj.get("source", {}))
 
-    @given(string=lists(bgm_info_field).map(dict).map(json.dumps))
+    @given(string=bgm_info_data.map(json.dumps))
     def test_from_json(self, string):
         assert BgmInfo.from_json(string) == BgmInfo.from_dict(json.loads(string))
 
@@ -41,3 +41,10 @@ class TestSource:
         assert source.date == date.fromisoformat(obj.get("date", "2004-01-01"))
         assert source.structure == obj.get("structure", "")
         assert source.version == obj.get("version", "")
+
+
+@given(string=lists(bgm_info_data).map(json.dumps))
+def test_config_from_json(string):
+    assert config_from_json(string) == [
+        BgmInfo.from_dict(data) for data in json.loads(string)
+    ]
