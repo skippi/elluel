@@ -1,4 +1,6 @@
+import json
 from dataclasses import dataclass
+from typing import (Dict, Any)
 
 @dataclass
 class Config:
@@ -6,3 +8,11 @@ class Config:
 
 def parse(_: str) -> Config:
     return Config()
+
+@dataclass
+class BgmInfo:
+    description: str
+
+    @classmethod
+    def from_dict(cls, d: Dict[str, Any]):
+        return BgmInfo(description=d["description"])
