@@ -12,12 +12,12 @@ class Metadata:
     year: int
 
     @classmethod
-    def from_dict(cls, d: Dict[str, Any]):
+    def from_dict(cls, data: Dict[str, Any]):
         return Metadata(
-            album_artist=d.get("album-artist", ""),
-            artist=d.get("artist", ""),
-            title=d.get("title", ""),
-            year=int(d.get("year", 2004)),
+            album_artist=data.get("album-artist", ""),
+            artist=data.get("artist", ""),
+            title=data.get("title", ""),
+            year=int(data.get("year", 2004)),
         )
 
 
@@ -29,12 +29,12 @@ class Source:
     version: str
 
     @classmethod
-    def from_dict(cls, d: Dict[str, Any]):
+    def from_dict(cls, data: Dict[str, Any]):
         return Source(
-            client=d.get("client", ""),
-            date=datetime.date.fromisoformat(d.get("date", "2004-01-01")),
-            structure=d.get("structure", ""),
-            version=d.get("version", ""),
+            client=data.get("client", ""),
+            date=datetime.date.fromisoformat(data.get("date", "2004-01-01")),
+            structure=data.get("structure", ""),
+            version=data.get("version", ""),
         )
 
 
@@ -48,14 +48,14 @@ class BgmInfo:
     youtube: str
 
     @classmethod
-    def from_dict(cls, d: Dict[str, Any]):
+    def from_dict(cls, data: Dict[str, Any]):
         return BgmInfo(
-            description=d.get("description", ""),
-            filename=d.get("filename", ""),
-            metadata=Metadata.from_dict(d.get("metadata", {})),
-            source=Source.from_dict(d.get("source", {})),
-            mark=d.get("mark", ""),
-            youtube=d.get("youtube", ""),
+            description=data.get("description", ""),
+            filename=data.get("filename", ""),
+            metadata=Metadata.from_dict(data.get("metadata", {})),
+            source=Source.from_dict(data.get("source", {})),
+            mark=data.get("mark", ""),
+            youtube=data.get("youtube", ""),
         )
 
     @classmethod
