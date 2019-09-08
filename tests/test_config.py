@@ -1,3 +1,4 @@
+import json
 from datetime import date
 
 from .strategies import bgm_info_field, metadata_field, source_field
@@ -21,6 +22,10 @@ class TestBgmInfo:
         assert info.youtube == obj.get("youtube", "")
         assert info.metadata == Metadata.from_dict(obj.get("metadata", {}))
         assert info.source == Source.from_dict(obj.get("source", {}))
+
+    @given(string=lists(bgm_info_field).map(dict).map(json.dumps))
+    def test_from_json(self, string):
+        assert BgmInfo.from_json(string) == BgmInfo.from_dict(json.loads(string))
 
 
 class TestMetadata:

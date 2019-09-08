@@ -66,3 +66,7 @@ class BgmInfo:
             mark=d.get("mark", ""),
             youtube=d.get("youtube", ""),
         )
+
+    @classmethod
+    def from_json(cls, string: str):
+        return cls.from_dict(json.loads(string))
