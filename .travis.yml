@@ -10,5 +10,5 @@ install:
 
 script:
   - poetry run black --check .
-  - poetry run pylint elluel
+  # - poetry run pylint elluel
   - poetry run pytest
