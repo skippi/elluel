@@ -8,7 +8,12 @@ def test_parse_returns_default_given_empty_object_str():
     assert parse("{}") == Config()
 
 
-_BgmInfoKV = tuples(just("description"), text()) | tuples(just("filename"), text())
+_BgmInfoKV = (
+    tuples(just("description"), text())
+    | tuples(just("filename"), text())
+    | tuples(just("mark"), text())
+    | tuples(just("youtube"), text())
+)
 _BgmInfoData = lists(_BgmInfoKV).map(dict)
 
 
@@ -18,3 +23,5 @@ class TestBgmInfo:
         info = BgmInfo.from_dict(obj)
         assert info.description == obj.get("description", "")
         assert info.filename == obj.get("filename", "")
+        assert info.mark == obj.get("mark", "")
+        assert info.youtube == obj.get("youtube", "")
