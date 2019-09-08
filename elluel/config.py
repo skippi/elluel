@@ -59,10 +59,6 @@ class BgmInfo:
             youtube=data.get("youtube", ""),
         )
 
-    @classmethod
-    def from_json(cls, string: str):
-        return cls.from_dict(json.loads(string))
-
     def download(self, output_dir: str) -> None:
         link = f"https://youtu.be/{self.youtube}"
         cmd = [

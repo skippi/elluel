@@ -18,10 +18,6 @@ class TestBgmInfo:
         assert info.metadata == Metadata.from_dict(obj.get("metadata", {}))
         assert info.source == Source.from_dict(obj.get("source", {}))
 
-    @given(string=bgm_info_data.map(json.dumps))
-    def test_from_json(self, string):
-        assert BgmInfo.from_json(string) == BgmInfo.from_dict(json.loads(string))
-
 
 class TestMetadata:
     @given(obj=lists(metadata_field).map(dict))
