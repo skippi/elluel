@@ -3,6 +3,9 @@ name = "elluel"
 version = "0.1.0"
 description = ""
 authors = ["skippi <jbtcao@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/skippi/elluel"
 
 [tool.poetry.dependencies]
 python = "^3.7"
