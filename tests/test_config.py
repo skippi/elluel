@@ -1,15 +1,10 @@
 import json
 from datetime import date
 
-from .strategies import bgm_info_field, metadata_field, source_field
-from elluel.config import BgmInfo, Metadata, Source, Config, parse
 from hypothesis import given
 from hypothesis.strategies import lists
-from pytest import raises
-
-
-def test_parse_returns_default_given_empty_object_str():
-    assert parse("{}") == Config()
+from elluel.config import BgmInfo, Metadata, Source
+from .strategies import bgm_info_field, metadata_field, source_field
 
 
 class TestBgmInfo:

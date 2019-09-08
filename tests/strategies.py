@@ -1,5 +1,5 @@
 from datetime import date
-from hypothesis.strategies import lists, tuples, just, text, integers, dates
+from hypothesis.strategies import tuples, just, text, integers, dates
 
 bgm_info_field = (
     tuples(just("description"), text())
