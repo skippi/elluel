@@ -1,5 +1,6 @@
 import datetime
 import json
+import os
 import subprocess
 from dataclasses import dataclass
 from typing import Dict, Any, List
@@ -61,6 +62,7 @@ class BgmInfo:
 
     def download(self, output_dir: str) -> None:
         link = f"https://youtu.be/{self.youtube}"
+        output_path = os.path.join(output_dir, f"{self.filename}.%(ext)s")
         cmd = [
             "youtube-dl",
             "-q",
@@ -69,7 +71,7 @@ class BgmInfo:
             "--extract-audio",
             link,
             "-o",
-            f"{self.filename}.%(ext)s",
+            output_path,
         ]
         subprocess.run(cmd)
 
@@ -83,7 +85,3 @@ class Config:
         return Config(
             bgm_infos=[BgmInfo.from_dict(data) for data in json.loads(string)]
         )
-
-    def download(self, output_dir: str) -> None:
-        for info in self.bgm_infos:
-            info.download(output_dir)
