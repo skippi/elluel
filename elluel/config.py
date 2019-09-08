@@ -87,5 +87,5 @@ class Config:
         )
 
     @classmethod
-    def from_file(self, stream: TextIO):
+    def from_file(cls, stream: TextIO):
         return Config.from_json(stream.read())

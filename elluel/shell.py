@@ -3,9 +3,10 @@ import os
 import click
 from .config import Config
 
+
 @click.command()
-@click.argument('input', nargs=1, metavar='<input>')
-@click.argument('output', nargs=1, metavar='<output>')
+@click.argument("input", nargs=1, metavar="<input>")
+@click.argument("output", nargs=1, metavar="<output>")
 def main(input, output):
     """Downloads OSTs listed in SlipySlidy's json file <input> to directory <output>.
 
@@ -21,15 +22,15 @@ def main(input, output):
         config = Config.from_file(file)
 
     for info in config.bgm_infos:
-        print(f'{info.filename} ...', end='', flush=True)
+        print(f"{info.filename} ...", end="", flush=True)
 
         if not info.youtube:
-            print(' missing youtube link: ignoring')
+            print(" missing youtube link: ignoring")
             continue
 
         if info.filename in no_ext:
-            print(' exists: ignoring')
+            print(" exists: ignoring")
             continue
 
         info.download(output)
-        print(' done')
+        print(" done")
