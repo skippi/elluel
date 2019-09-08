@@ -78,8 +78,12 @@ class BgmInfo:
         subprocess.run(cmd)
 
 
-Config = List[BgmInfo]
+@dataclass
+class Config:
+    bgm_infos: List[BgmInfo]
 
-
-def config_from_json(string: str):
-    return [BgmInfo.from_dict(data) for data in json.loads(string)]
+    @classmethod
+    def from_json(cls, string: str):
+        return Config(
+            bgm_infos=[BgmInfo.from_dict(data) for data in json.loads(string)]
+        )

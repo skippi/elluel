@@ -3,7 +3,7 @@ from datetime import date
 
 from hypothesis import given
 from hypothesis.strategies import lists
-from elluel.config import BgmInfo, Metadata, Source, config_from_json
+from elluel.config import BgmInfo, Config, Metadata, Source
 from .strategies import bgm_info_data, metadata_field, source_field
 
 
@@ -43,8 +43,8 @@ class TestSource:
         assert source.version == obj.get("version", "")
 
 
-@given(string=lists(bgm_info_data).map(json.dumps))
-def test_config_from_json(string):
-    assert config_from_json(string) == [
-        BgmInfo.from_dict(data) for data in json.loads(string)
-    ]
+class TestConfig:
+    @given(string=lists(bgm_info_data).map(json.dumps))
+    def test_from_json(self, string):
+        cfg = Config.from_json(string)
+        cfg.bgm_infos = [BgmInfo.from_dict(data) for data in json.loads(string)]
