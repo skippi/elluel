@@ -11,6 +11,7 @@ python = "^3.7"
 pytest = "^3.0"
 black = {version = "^18.3-alpha.0", allows-prereleases = true}
 pylint = "^2.3"
+hypothesis = "^4.35"
 
 [build-system]
 requires = ["poetry>=0.12"]
