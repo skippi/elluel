@@ -1,5 +1,7 @@
 # elluel
 
+[![Build Status](https://travis-ci.com/skippi/elluel.svg?branch=master)](https://travis-ci.com/skippi/elluel)
+
 A CLI tool for downloading OSTs from SlipySlidy's Maplestory OST list.
 
 The latest OST list can be found at the [maplebgm-db repo](https://github.com/maplestory-music/maplebgm-db/blob/master/bgm.json).
