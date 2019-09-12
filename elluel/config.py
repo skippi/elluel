@@ -3,8 +3,10 @@ import json
 import os
 import subprocess
 from dataclasses import dataclass
+from io import BytesIO
 from typing import Dict, Any, List, TextIO
 
+from mutagen.mp3 import EasyMP3
 
 @dataclass
 class Metadata:
@@ -74,6 +76,18 @@ class BgmInfo:
             output_path,
         ]
         subprocess.run(cmd)
+
+    def tag(self, data: bytes) -> bytes:
+        mp3 = EasyMP3(BytesIO(data))
+        mp3["title"] = [self.metadata.title]
+        mp3["artist"] = [self.metadata.artist]
+        mp3["albumartist"] = [self.metadata.album_artist]
+        mp3["date"] = [str(self.metadata.year)]
+        mp3["album"] = [f"MapleStory {self.source.structure}"]
+
+        buffer = BytesIO(data)
+        mp3.save(buffer)
+        return buffer.getvalue()
 
 
 @dataclass

@@ -1,11 +1,18 @@
 import io
 import json
 from datetime import date
+from os.path import dirname, join
 
 from hypothesis import given
 from hypothesis.strategies import lists
+from mutagen.mp3 import EasyMP3
 from elluel.config import BgmInfo, Config, Metadata, Source
 from .strategies import bgm_info_data, metadata_field, source_field
+
+
+_TEST_MP3_NAME = join(dirname(__file__), 'silence.mp3')
+with open(_TEST_MP3_NAME, mode='rb') as file:
+    _TEST_MP3_DATA = file.read()
 
 
 class TestBgmInfo:
@@ -18,6 +25,26 @@ class TestBgmInfo:
         assert info.youtube == obj.get("youtube", "")
         assert info.metadata == Metadata.from_dict(obj.get("metadata", {}))
         assert info.source == Source.from_dict(obj.get("source", {}))
+
+    @given(info=bgm_info_data.map(BgmInfo.from_dict))
+    def test_tag(self, info):
+        new_data = info.tag(_TEST_MP3_DATA)
+        mp3 = EasyMP3(io.BytesIO(new_data))
+
+        if info.metadata.title:
+            assert mp3["title"] == [info.metadata.title]
+
+        if info.metadata.artist:
+            assert mp3["artist"] == [info.metadata.artist]
+
+        if info.metadata.album_artist:
+            assert mp3["albumartist"] == [info.metadata.album_artist]
+        
+        if info.metadata.year:
+            assert mp3["date"] == [str(info.metadata.year)]
+
+        if info.source.structure:
+            assert mp3["album"] == [f"MapleStory {info.source.structure}"]
 
 
 class TestMetadata:
