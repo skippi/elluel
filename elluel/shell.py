@@ -8,16 +8,18 @@ from .config import Config
 
 @click.group()
 def elluel():
-    pass
+    """Maplestory OST utility"""
 
 
-@elluel.command()
+
+@elluel.command(short_help="download OSTs from youtube")
 @click.argument("input", nargs=1, metavar="<input>")
 @click.argument("output", nargs=1, metavar="<output>")
 def youtube(input, output):
-    """Downloads OSTs listed in SlipySlidy's json file <input> to directory <output>.
-
-    This program will skip any OSTs that already exist in <output>.
+    """
+    Download OSTs listed in SlipySlidy's json file <input> to directory <output>.
+    
+    Skips any OSTs that already exist in <output>.
     """
 
     dir_files = [f for f in os.listdir(output)]
@@ -41,11 +43,13 @@ def youtube(input, output):
         print(" done")
 
 
-@elluel.command()
+@elluel.command(short_help='tag existing OST files')
 @click.argument("json", nargs=1, metavar="<json>")
 @click.argument("output_dir", nargs=1, metavar="<dir>")
 def tag(json, output_dir):
-    """Tags files in directory <dir> listed on SlipySlidy's json file <json>.
+    """ 
+
+    Tag files in directory <dir> listed on SlipySlidy's json file <json>.
 
     Checks by filename according to the JSON configuration.
     """
