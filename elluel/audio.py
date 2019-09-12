@@ -1,17 +1,21 @@
 from io import BytesIO
 
 import mutagen.mp3 as mp3
-from mutagen.easyid3 import EasyID3
 
 class MP3:
-    def __init__(self, data: bytes = bytes()):
+    def __init__(self, data: bytes):
         self.data = data
-        self.mutagen_handle = mp3.MP3(BytesIO(self.data), ID3=EasyID3)
+        self.mutagen_handle = mp3.EasyMP3(BytesIO(self.data))
+
+    @classmethod
+    def from_bytes(cls, data: bytes):
+        return cls(data=bytes(data))
 
     @property
     def tags(self):
         return self.mutagen_handle
 
-    @classmethod
-    def from_bytes(cls, data: bytes):
-        return cls(data=bytes(data))
+    def export(self):
+        result = BytesIO(self.data)
+        self.mutagen_handle.save(result)
+        return result.getvalue()
