@@ -8,6 +8,7 @@ from typing import Dict, Any, List, TextIO
 
 from mutagen.mp3 import EasyMP3
 
+
 @dataclass
 class Metadata:
     album_artist: str

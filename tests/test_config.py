@@ -10,8 +10,8 @@ from elluel.config import BgmInfo, Config, Metadata, Source
 from .strategies import bgm_info_data, metadata_field, source_field
 
 
-_TEST_MP3_NAME = join(dirname(__file__), 'silence.mp3')
-with open(_TEST_MP3_NAME, mode='rb') as file:
+_TEST_MP3_NAME = join(dirname(__file__), "silence.mp3")
+with open(_TEST_MP3_NAME, mode="rb") as file:
     _TEST_MP3_DATA = file.read()
 
 
@@ -39,7 +39,7 @@ class TestBgmInfo:
 
         if info.metadata.album_artist:
             assert mp3["albumartist"] == [info.metadata.album_artist]
-        
+
         if info.metadata.year:
             assert mp3["date"] == [str(info.metadata.year)]
 
