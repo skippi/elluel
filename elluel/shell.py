@@ -11,7 +11,6 @@ def elluel():
     """Maplestory OST utility"""
 
 
-
 @elluel.command(short_help="download OSTs from youtube")
 @click.argument("input", nargs=1, metavar="<input>")
 @click.argument("output", nargs=1, metavar="<output>")
@@ -43,7 +42,7 @@ def youtube(input, output):
         print(" done")
 
 
-@elluel.command(short_help='tag existing OST files')
+@elluel.command(short_help="tag existing OST files")
 @click.argument("json", nargs=1, metavar="<json>")
 @click.argument("output_dir", nargs=1, metavar="<dir>")
 def tag(json, output_dir):
